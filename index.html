@@ -1,79 +1,129 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Listen to EEG</title>
+    <title>My Page</title>
     <style>
-      /* Set font family and color for text */
-      body {
-        font-family: Arial, sans-serif;
-        color: #333;
-      }
-      
-      /* Style for audio controls */
-      audio {
-        display: block;
-        margin: 0 auto;
-        width: 100%;
-        max-width: 400px;
-      }
-      
-      /* Style for image */
-      img {
-        display: block;
-        margin: 0 auto;
-        max-width: 100%;
-        height: auto;
-      }
-      
-      /* Style for audio description */
-      .audio-description {
-        text-align: center;
-        margin-top: 1rem;
-        font-weight: bold;
-        font-size: 1.2rem;
-      }
-      
-      /* Style for audio container */
-      .audio-container {
+      /* Style for the container div */
+      .container {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 2rem;
-        background-color: #f2f2f2;
+        height: 100vh;
       }
       
-      /* Style for audio box */
-      .audio-box {
-        flex-basis: 45%;
-        margin-bottom: 1rem;
+      /* Style for the top half of the page */
+      .intro {
+        width: 50%;
+        height: 50%;
+        background-color: #f2f2f2;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      /* Style for the bottom half of the page */
+      .navigation {
+        width: 50%;
+        height: 50%;
+        background-color: #ffffff;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
     </style>
   </head>
   <body>
-    <div class="audio-container">
-      <div class="audio-box">
-        <h2>Audio 1: Birds Chirping</h2>
-        <audio controls>
-          <source src="audio_files/cpp/eeg1.wav" type="audio/wav">
-          Your browser does not support the audio element.
-        </audio>
-        <img src="images/cpp/eeg4.png" alt="Birds Chirping">
-        <div class="audio-description">This is a recording of birds chirping in the morning.</div>
+    <div class="container">
+      <!-- Top half of the page -->
+      <div class="intro">
+        <h1>Welcome to my page!</h1>
+        <p>Here is some introduction text.</p>
       </div>
-      <div class="audio-box">
-        <h2>Audio 2: Waves Crashing</h2>
-        <audio controls>
-          <source src="audio_files/cpp/eeg2.wav" type="audio/wav">
-          Your browser does not support the audio element.
-        </audio>
-        <img src="images/cpp/eeg2.png" alt="Waves Crashing">
-        <div class="audio-description">This is a recording of waves crashing on the beach.</div>
+
+      <!-- Bottom half of the page -->
+      <div class="navigation">
+        <h2>Navigation</h2>
+        <ul>
+        <div class="item" data-url="pages/eeg2.html"></div>
+        <div class="item" data-url="pages/eeg2.html"></div>
+        <div class="item" data-url="pages/eeg2.html"></div>
+        <div class="item" data-url="page1.html"></div>
+        <div class="item" data-url="page1.html"></div>
+        <div class="item" data-url="page1.html"></div>
+        <div class="item" data-url="page1.html"></div>
+        </ul>
       </div>
     </div>
+    
+    <!-- JavaScript code for pagination -->
+    <script>
+      // Set the number of pages and items per page
+      const numPages = 8;
+      const itemsPerPage = 1;
+
+      // Get the navigation div and create pagination buttons
+      const nav = document.querySelector('.navigation');
+      for (let i = 1; i <= numPages; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = i;
+        nav.appendChild(btn);
+      }
+
+      // Show the first page and hide the rest
+      const items = document.querySelectorAll('.item');
+      for (let i = itemsPerPage; i < items.length; i++) {
+        items[i].style.display = 'none';
+      }
+
+      // Add click event listener to each button
+      const buttons = document.querySelectorAll('.navigation button');
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', () => {
+          // Determine which page was clicked
+          const pageNum = parseInt(buttons[i].innerText);
+
+          // Calculate the start and end index of the items to show
+          const start = (pageNum - 1) * itemsPerPage;
+          const end = start + itemsPerPage;
+
+          // Show the items for the selected page and hide the rest
+          for (let j = 0; j < items.length; j++) {
+            if (j >= start && j < end) {
+              items[j].style.display = '';
+            } else {
+              items[j].style.display = 'none';
+            }
+          }
+
+          // Set the active button style
+          for (let j = 0; j < buttons.length; j++) {
+            buttons[j].classList.remove('active');
+          }
+          buttons[i].classList.add('active');
+        });
+      }
+
+      // Set the first button as active
+      buttons[0].classList.add('active');
+
+      // Load content of other HTML files into items
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const url = item.getAttribute('data-url');
+
+        fetch(url)
+          .then(response => response.text())
+          .then(html => {
+            item.innerHTML = html;
+          })
+          .catch(error => console.error(error));
+      }
+      // Code for pagination goes here
+    </script>
   </body>
 </html>
-
