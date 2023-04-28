@@ -1,52 +1,61 @@
-const items = document.querySelectorAll('.item');
+// Set the number of pages and items per page
+const numPages = 8;
 const itemsPerPage = 1;
-let currentPage = 1;
 
-function showPage(pageNumber) {
-  const startIndex = (pageNumber - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  items.forEach((item, index) => {
-    if (index >= startIndex && index < endIndex) {
-      item.style.display = 'block';
-      item.querySelector('iframe').src = item.getAttribute('href');
-    } else {
-      item.style.display = 'none';
+// Get the navigation div and create pagination buttons
+const nav = document.querySelector('.navigation');
+for (let i = 1; i <= numPages; i++) {
+  const btn = document.createElement('button');
+  btn.innerText = i;
+  nav.appendChild(btn);
+}
+
+// Show the first page and hide the rest
+const items = document.querySelectorAll('.item');
+for (let i = itemsPerPage; i < items.length; i++) {
+  items[i].style.display = 'none';
+}
+
+// Add click event listener to each button
+const buttons = document.querySelectorAll('.navigation button');
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener('click', () => {
+    // Determine which page was clicked
+    const pageNum = parseInt(buttons[i].innerText);
+
+    // Calculate the start and end index of the items to show
+    const start = (pageNum - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    // Show the items for the selected page and hide the rest
+    for (let j = 0; j < items.length; j++) {
+      if (j >= start && j < end) {
+        items[j].style.display = '';
+      } else {
+        items[j].style.display = 'none';
+      }
     }
+
+    // Set the active button style
+    for (let j = 0; j < buttons.length; j++) {
+      buttons[j].classList.remove('active');
+    }
+    buttons[i].classList.add('active');
   });
 }
 
-function createPagination() {
-  const totalPages = Math.ceil(items.length / itemsPerPage);
-  const pagination = document.createElement('div');
-  pagination.classList.add('pagination');
-  for (let i = 1; i <= totalPages; i++) {
-    const pageLink = document.createElement('a');
-    pageLink.href = '#';
-    pageLink.textContent = i;
-    if (i === currentPage) {
-      pageLink.classList.add('active');
-    }
-    pageLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      currentPage = i;
-      showPage(currentPage);
-      updatePagination();
-    });
-    pagination.appendChild(pageLink);
-  }
-  document.querySelector('.navigation').appendChild(pagination);
-}
+// Set the first button as active
+buttons[0].classList.add('active');
 
-function updatePagination() {
-  const paginationLinks = document.querySelectorAll('.pagination a');
-  paginationLinks.forEach((link, index) => {
-    if (index + 1 === currentPage) {
-      link.classList.add('active');
-    } else {
-      link.classList.remove('active');
-    }
-  });
-}
+// Load content of other HTML files into items
+for (let i = 0; i < items.length; i++) {
+  const item = items[i];
+  const url = item.getAttribute('data-url');
 
-showPage(currentPage);
-createPagination();
+  fetch(url)
+    .then(response => response.text())
+    .then(html => {
+      item.innerHTML = html;
+    })
+    .catch(error => console.error(error));
+}
