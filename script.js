@@ -1,5 +1,5 @@
 const items = document.querySelectorAll('.item');
-const itemsPerPage = 4;
+const itemsPerPage = 1;
 let currentPage = 1;
 
 function showPage(pageNumber) {
