@@ -3,6 +3,32 @@
   <head>
     <title>My Page</title>
     <style>
+      .center {
+        text-align: center;
+      }
+
+      .pagination {
+        display: inline-block;
+      }
+
+      .pagination button {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        margin: 0 4px;
+      }
+
+      .pagination button.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+      }
+
+      .pagination button:hover:not(.active) {background-color: #ddd;}
+
       /* Style for the container div */
       .container {
         display: flex;
@@ -23,18 +49,6 @@
         justify-content: center;
         align-items: center;
       }
-      
-      /* Style for the bottom half of the page */
-      .navigation {
-        width: 50%;
-        height: 50%;
-        background-color: #ffffff;
-        padding: 50px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
     </style>
   </head>
   <body>
@@ -43,10 +57,21 @@
       <div class="intro">
         <h1>Welcome to my page!</h1>
         <p>Here is some introduction text.</p>
+        <div class="center">
+          <div class="pagination">
+          <button href="#">&laquo;</button>
+          <button href="#">1</button>
+          <button href="#" class="active">2</button>
+          <button href="#">3</button>
+          <button href="#">4</button>
+          <button href="#">5</button>
+          <button href="#">6</button>
+          <button href="#">&raquo;</button>
+          </div>
+        </div>
       </div>
 
       <!-- Bottom half of the page -->
-      <div class="navigation"></div>
       <div class="item" data-url="pages/eeg2.html"></div>
       <div class="item" data-url="pages/eeg2.html"></div>
       <div class="item" data-url="pages/eeg2.html"></div>

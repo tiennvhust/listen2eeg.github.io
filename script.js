@@ -1,14 +1,14 @@
 // Set the number of pages and items per page
-const numPages = 8;
+// const numPages = 8;
 const itemsPerPage = 1;
 
 // Get the navigation div and create pagination buttons
-const nav = document.querySelector('.navigation');
-for (let i = 1; i <= numPages; i++) {
-  const btn = document.createElement('button');
-  btn.innerText = i;
-  nav.appendChild(btn);
-}
+// const nav = document.querySelector('.navigation');
+// for (let i = 1; i <= numPages; i++) {
+//   const btn = document.createElement('button');
+//   btn.innerText = i;
+//   nav.appendChild(btn);
+// }
 
 // Show the first page and hide the rest
 const items = document.querySelectorAll('.item');
@@ -17,7 +17,7 @@ for (let i = itemsPerPage; i < items.length; i++) {
 }
 
 // Add click event listener to each button
-const buttons = document.querySelectorAll('.navigation button');
+const buttons = document.querySelectorAll('.pagination button');
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener('click', () => {
     // Determine which page was clicked
