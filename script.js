@@ -1,14 +1,5 @@
 // Set the number of pages and items per page
-// const numPages = 8;
 const itemsPerPage = 1;
-
-// Get the navigation div and create pagination buttons
-// const nav = document.querySelector('.navigation');
-// for (let i = 1; i <= numPages; i++) {
-//   const btn = document.createElement('button');
-//   btn.innerText = i;
-//   nav.appendChild(btn);
-// }
 
 // Show the first page and hide the rest
 const items = document.querySelectorAll('.item');
