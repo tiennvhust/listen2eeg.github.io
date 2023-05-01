@@ -39,11 +39,13 @@
       
       /* Style for the top half of the page */
       .intro {
+        width: 75%;
         height: 50%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        text-align: justify;
       }
     </style>
   </head>
@@ -53,6 +55,8 @@
       <div class="intro">
         <h1>Listen to EEG!</h1>
         <p>&nbsp;The original AI-assisted sonification algorithm was first introduced in [1]. This algorithm utilizes the Phase Vocoder (PV) algorithm with an AI-guided time-compression factor as an attention mechanism. It combines AI algorithms' accuracy and speed with sonification's interpretability and intuitiveness to enable a quick, accurate, and interpretable seizure detection method requiring little to no medical workers' training.<br>&nbsp;From that, a real-time adaptation of this algorithm was developed that overcome the limitations in the previous studies offline-processing approach allowing output audio to be always available for listening. Medical workers can have access to real-time audio at any time without having to periodically restart the sonification algorithm, enabling seizure detection as soon as they occur.<br>&nbsp;This new adaptation has modifications in the architecture and algorithm implementation. While the original algorithm was implemented in Matlab, its real-time adaptation was implemented in C/C++ using the available open-source mathematic libraries. A thorough comparison was performed to guarantee the unchanged performance of the AI-assisted sonification algorithm in real-time implementation.</p>
+        <h3>References</h3>
+		    <p>[1]&nbsp;Gomez-Quintana, S., O’Shea, A., Factor, A. et al. A method for AI assisted human interpretation of neonatal EEG. Sci Rep 12, 10932 (2022). https://doi.org/10.1038/s41598-022-14894-4</p>
         <div class="center">
           <div class="pagination">
           <!-- <button href="#">&laquo;</button> -->
