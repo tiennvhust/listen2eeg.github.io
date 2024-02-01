@@ -1,1 +1,0 @@
-Contain audio spectrograms
